@@ -1,0 +1,306 @@
+/* ============================================
+   VARIABLES GLOBALES - PALETTE MARRON
+   ============================================ */
+:root {
+    --primary-brown: #8B6F47;
+    --dark-brown: #5D4E37;
+    --light-brown: #D4A574;
+    --cream: #F5F1ED;
+    --accent: #C19A6B;
+    --text-dark: #3E2723;
+    --text-muted: #6D6D6D;
+    --border-light: #E8DED2;
+}
+
+/* ============================================
+   STYLES GLOBAUX
+   ============================================ */
+* {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    color: var(--text-dark);
+    background-color: #FAFAFA;
+}
+
+/* ============================================
+   BOUTONS
+   ============================================ */
+.btn-primary,
+.btn-brown {
+    background: linear-gradient(135deg, var(--primary-brown) 0%, var(--dark-brown) 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-brown:hover {
+    background: var(--dark-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(93, 78, 55, 0.4);
+}
+
+.btn-outline-brown {
+    border: 2px solid var(--primary-brown);
+    color: var(--primary-brown);
+    background: transparent;
+}
+
+.btn-outline-brown:hover {
+    background: var(--primary-brown);
+    color: white;
+}
+
+/* ============================================
+   LIENS
+   ============================================ */
+a {
+    color: var(--primary-brown);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--dark-brown);
+}
+
+/* ============================================
+   FORMULAIRES
+   ============================================ */
+.form-control {
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-brown);
+    box-shadow: 0 0 0 3px rgba(139, 111, 71, 0.1);
+    outline: none;
+}
+
+.form-label {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+input::placeholder {
+    color: #999;
+}
+
+/* ============================================
+   ALERTES
+   ============================================ */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-success {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.alert-danger {
+    background-color: #FFEBEE;
+    color: #C62828;
+}
+
+.alert-warning {
+    background-color: #FFF3E0;
+    color: #E65100;
+}
+
+/* ============================================
+   CARTES
+   ============================================ */
+.card {
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(93, 78, 55, 0.12);
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+.badge-brown {
+    background: var(--primary-brown);
+    color: white;
+}
+
+.badge-light-brown {
+    background: var(--light-brown);
+    color: var(--dark-brown);
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+.table {
+    border-collapse: collapse;
+}
+
+.table thead {
+    background-color: var(--cream);
+    border-bottom: 2px solid var(--border-light);
+}
+
+.table thead th {
+    color: var(--dark-brown);
+    font-weight: 600;
+    border-color: var(--border-light);
+}
+
+.table tbody tr:hover {
+    background-color: #F9F7F4;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+.pagination .page-link {
+    color: var(--primary-brown);
+    border-color: var(--border-light);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--light-brown);
+    border-color: var(--primary-brown);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-brown);
+    border-color: var(--primary-brown);
+}
+
+/* ============================================
+   HEADERS & TITLES
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--dark-brown);
+    font-weight: 700;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.navbar {
+    background: var(--dark-brown) !important;
+    box-shadow: 0 2px 12px rgba(93, 78, 55, 0.08);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+    color: white !important;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--light-brown) !important;
+    transform: translateY(-1px);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    background: var(--cream);
+    border-top: 2px solid var(--border-light);
+    color: var(--text-muted);
+}
+
+.footer h5,
+.footer h6 {
+    color: var(--dark-brown);
+}
+
+.footer a {
+    color: var(--text-muted);
+}
+
+.footer a:hover {
+    color: var(--primary-brown);
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+.modal-header {
+    border-bottom: 2px solid var(--border-light);
+}
+
+.modal-title {
+    color: var(--dark-brown);
+    font-weight: 700;
+}
+
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(1.5);
+}
+
+/* ============================================
+   DROPDOWN
+   ============================================ */
+.dropdown-menu {
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 8px;
+}
+
+.dropdown-item {
+    color: var(--text-dark);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--cream);
+    color: var(--primary-brown);
+}
+
+/* ============================================
+   ESPACEMENTS
+   ============================================ */
+.container {
+    max-width: 1200px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem !important;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}

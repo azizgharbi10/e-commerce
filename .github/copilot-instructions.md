@@ -1,0 +1,22 @@
+# AI Coding Guide
+- **Stack**: Laravel 12 on PHP 8.2; Vite + Tailwind 4 for assets.
+- **Domain focus**: Category listing/create flow only. Routes are declared in [routes/web.php](routes/web.php#L1-L8) and point to the `CategoryController` actions.
+- **Controller pattern**: `CategoryController` loads categories via `Category::latest()` and returns `categories.*` views, slugs with `Str::slug`, and redirects with flash success on store; see [app/Http/Controllers/CategoryController.php](app/Http/Controllers/CategoryController.php#L1-L36).
+- **Model shape**: `Category` fillable fields are `name`, `slug`, `description`; no relationships yet; see [app/Models/Category.php](app/Models/Category.php#L1-L18).
+- **Schema**: Migration creates `categories` with unique `slug`; see [database/migrations/2026_01_18_000207_create_categories_table.php](database/migrations/2026_01_18_000207_create_categories_table.php#L7-L24).
+- **View location gotcha**: Blade files live under `resources/views/categorie/…` while controllers expect `categories.*`; align the folder or view names before adding features; current files: [resources/views/categorie/index.blade](resources/views/categorie/index.blade#L1-L23) and [resources/views/categorie/create](resources/views/categorie/create#L1-L21).
+- **Front-end**: Minimal JS bootstraps Axios only; Vite entry is [resources/js/app.js](resources/js/app.js#L1-L1) importing [resources/js/bootstrap.js](resources/js/bootstrap.js#L1-L5). Tailwind 4 installed but unused in views.
+- **App config**: Default Laravel config; service providers untouched; see [config](config).
+- **Common workflows**:
+  - First-time setup: `composer run setup` (installs deps, copies `.env`, key:generate, migrates, npm install, Vite build).
+  - Dev loop: `composer run dev` launches `php artisan serve`, queue listener, `php artisan pail` live logs, and `npm run dev` via `concurrently`.
+  - Tests: `composer run test` clears config and runs `php artisan test`.
+  - Migrations: `php artisan migrate` / `migrate:fresh --seed` as needed.
+- **Conventions**: Prefer route names `categories.*` and resourceful controller methods; generate slugs from names; use mass-assignment through `$fillable`.
+- **Data entry**: Store validates `name` required, `description` nullable; adjust validation rules if adding fields to the migration/model/controller together.
+- **Assets**: If adding CSS/JS, register via Vite and include Blade directives (`@vite(['resources/js/app.js','resources/css/app.css'])`) since layouts currently plain HTML.
+- **Internationalization**: User-facing strings currently in French; keep consistency.
+- **Testing notes**: No feature tests for categories yet; add `Feature` tests around validation, slug uniqueness, and view rendering when extending flow.
+- **Debugging**: `laravel/pail` already wired in `composer run dev` for tailing logs interactively.
+- **Environment**: `.env.example` auto-copied by scripts; adjust DB creds before running setup; SQLite helper in composer post-create if desired.
+- **Extending**: When adding new resources, mirror the Category flow (migration → model `$fillable` → controller with validation → Blade views under matching folder → route name consistency).
