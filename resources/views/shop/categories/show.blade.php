@@ -821,7 +821,7 @@
 
 <!-- Boutons de navigation -->
 <div class="category-nav mb-5">
-    <a href="{{ route('shop.products.index') }}" class="nav-btn btn-back">
+    <a href="{{ route('shop.products.all') }}" class="nav-btn btn-back">
         <i class="bi bi-arrow-left"></i> Retour à la boutique
     </a>
     <a href="{{ route('shop.categories.index') }}" class="nav-btn btn-all-categories">

@@ -35,8 +35,8 @@
     
     <div class="row g-4 mb-4">
         <div class="col-6 col-md-3">
-            <a href="{{ route('shop.products.index') }}" class="category-card-modern {{ empty(request('category')) ? 'active' : '' }}">
-                <div class="category-image-modern" style="background-image: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400&q=80');"></div>
+            <a href="{{ route('shop.products.all') }}" class="category-card-modern">
+                <div class="category-image-modern" style="background-image: url({{ asset('img/vetements_mx.png') }});"></div>
                 <div class="category-content-modern">
                     <h5>Tous les produits</h5>
                     <div class="category-count">{{ $products->total() }} articles</div>
@@ -61,48 +61,6 @@
                 </a>
             </div>
         @endforeach
-    </div>
-</div>
-
-<!-- Section Nos Services -->
-<div class="services-section mb-5">
-    <div class="row g-4">
-        <div class="col-md-3 col-6">
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="bi bi-truck"></i>
-                </div>
-                <h6>Livraison Rapide</h6>
-                <p>Expédition sous 24h</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="bi bi-shield-check"></i>
-                </div>
-                <h6>Paiement Sécurisé</h6>
-                <p>100% sécurisé</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="bi bi-arrow-counterclockwise"></i>
-                </div>
-                <h6>Retour Gratuit</h6>
-                <p>30 jours pour changer d'avis</p>
-            </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="bi bi-headset"></i>
-                </div>
-                <h6>Support 24/7</h6>
-                <p>Service client à votre écoute</p>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -190,6 +148,56 @@
             {{ $products->links() }}
         </div>
     @endif
+</div>
+
+<!-- Section Nos Services -->
+<div class="services-section mb-5">
+    <div class="section-header">
+        <div>
+            <h2 class="section-title">
+                <i class="bi bi-star"></i> Nos Services
+            </h2>
+            <p class="section-subtitle">Découvrez nos avantages et garanties</p>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-3 col-6">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="bi bi-truck"></i>
+                </div>
+                <h6>Livraison Rapide</h6>
+                <p>Expédition sous 24h</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h6>Paiement Sécurisé</h6>
+                <p>100% sécurisé</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </div>
+                <h6>Retour Gratuit</h6>
+                <p>30 jours pour changer d'avis</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="bi bi-headset"></i>
+                </div>
+                <h6>Support 24/7</h6>
+                <p>Service client à votre écoute</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -1040,3 +1048,5 @@
 </script>
 
 @endsection
+
+

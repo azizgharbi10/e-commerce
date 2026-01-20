@@ -28,6 +28,17 @@ class ProductController extends Controller
         return view('shop.products.index', compact('products', 'categories'));
     }
 
+    public function all()
+    {
+        $products = Product::with('category')
+            ->active()
+            ->inStock()
+            ->ordered()
+            ->paginate(12);
+
+        return view('shop.products.all', compact('products'));
+    }
+
     public function search()
     {
         $query = request('q', '');

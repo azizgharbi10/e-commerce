@@ -33,7 +33,8 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            // Autorise jusqu'à 8 Mo pour les images de catégorie
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:8192'],
         ], $messages);
 
         $slug = Str::slug($validated['name']);
@@ -77,7 +78,8 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            // Autorise jusqu'à 8 Mo pour les images de catégorie
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:8192'],
         ], $messages);
 
         $slug = Str::slug($validated['name']);

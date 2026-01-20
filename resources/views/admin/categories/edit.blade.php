@@ -42,7 +42,7 @@
         @error('image')
             <p style="color:red;">{{ $message }}</p>
         @enderror
-        <p style="font-size:0.9em; color:#666;">Formats acceptés : JPEG, PNG, JPG, GIF (max 2MB)</p>
+        <p style="font-size:0.9em; color:#666;">Formats acceptés : JPEG, PNG, JPG, GIF (max 8MB)</p>
     </div>
 
     <br>

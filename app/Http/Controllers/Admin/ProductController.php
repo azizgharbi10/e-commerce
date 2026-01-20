@@ -41,7 +41,7 @@ class ProductController extends Controller
             'slug.unique' => 'Ce slug existe déjà, choisissez un autre nom.',
             'image.image' => 'Le fichier doit être une image.',
             'image.mimes' => 'L\'image doit être au format: jpeg, png, jpg, gif.',
-            'image.max' => 'L\'image ne doit pas dépasser 2MB.',
+            'image.max' => 'L\'image ne doit pas dépasser 15MB.',
         ];
 
         $validated = $request->validate([
@@ -51,7 +51,8 @@ class ProductController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'in:active,inactive'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            // Autorise jusqu'à 15 Mo pour les images produit
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:15360'],
         ], $messages);
 
         $slug = Str::slug($validated['name']);
@@ -106,7 +107,7 @@ class ProductController extends Controller
             'slug.unique' => 'Ce slug existe déjà, choisissez un autre nom.',
             'image.image' => 'Le fichier doit être une image.',
             'image.mimes' => 'L\'image doit être au format: jpeg, png, jpg, gif.',
-            'image.max' => 'L\'image ne doit pas dépasser 2MB.',
+            'image.max' => 'L\'image ne doit pas dépasser 15MB.',
         ];
 
         $validated = $request->validate([
@@ -116,7 +117,8 @@ class ProductController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'in:active,inactive'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            // Autorise jusqu'à 15 Mo pour les images produit
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:15360'],
         ], $messages);
 
         $slug = Str::slug($validated['name']);

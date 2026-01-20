@@ -584,7 +584,7 @@
     <span class="intro-subtitle">✨ Explorez</span>
     <h2 class="intro-title">Trouvez Exactement Ce Que Vous Cherchez</h2>
     <p class="intro-description">Parcourez nos catégories soigneusement organisées pour une expérience de shopping optimale. Chaque catégorie contient des produits sélectionnés avec soin.</p>
-    <a href="{{ route('shop.products.index') }}" class="intro-cta">
+    <a href="{{ route('shop.products.all') }}" class="intro-cta">
         <i class="bi bi-box-seam"></i> Voir tous les produits
     </a>
 </div>
