@@ -33,6 +33,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ], $messages);
 
         $slug = Str::slug($validated['name']);
@@ -43,10 +44,16 @@ class CategoryController extends Controller
             ['slug.unique' => 'Ce slug existe déjà, choisissez un autre nom.']
         )->validate();
 
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+        }
+
         Category::create([
             'name' => $validated['name'],
             'slug' => $slug,
             'description' => $validated['description'] ?? null,
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('admin.categories.index')
@@ -70,6 +77,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ], $messages);
 
         $slug = Str::slug($validated['name']);
@@ -80,11 +88,21 @@ class CategoryController extends Controller
             ['slug.unique' => 'Ce slug existe déjà, choisissez un autre nom.']
         )->validate();
 
-        $category->update([
+        $data = [
             'name' => $validated['name'],
             'slug' => $slug,
             'description' => $validated['description'] ?? null,
-        ]);
+        ];
+
+        if ($request->hasFile('image')) {
+            // Supprimer l'ancienne image si elle existe
+            if ($category->image && \Storage::disk('public')->exists($category->image)) {
+                \Storage::disk('public')->delete($category->image);
+            }
+            $data['image'] = $request->file('image')->store('categories', 'public');
+        }
+
+        $category->update($data);
 
         return redirect()->route('admin.categories.index')
                          ->with('success', 'Catégorie mise à jour avec succès');

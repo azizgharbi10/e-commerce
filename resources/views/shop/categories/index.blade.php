@@ -20,6 +20,13 @@
         @foreach ($categories as $category)
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="card h-100">
+                    @if($category->image)
+                        <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    @else
+                        <div style="height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #999;">Pas d'image disponible</span>
+                        </div>
+                    @endif
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title mb-1">{{ $category->name }}</h5>
                         <p class="card-text text-muted mb-3">{{ Str::limit($category->description, 120) }}</p>

@@ -10,7 +10,7 @@
 
 <!-- Bouton retour vers connexion visible en haut -->
 <div class="mb-3">
-    <a href="{{ route('login') }}" class="btn btn-outline-secondary w-100" style="border-color: #667eea; color: #667eea; font-weight: 600;">
+    <a href="{{ route('login') }}" class="btn btn-outline-brown w-100" style="font-weight: 600;">
         <i class="bi bi-arrow-left me-2"></i>Retour à la connexion
     </a>
 </div>
@@ -94,8 +94,8 @@
         >
     </div>
 
-    <button type="submit" class="btn btn-auth">
-        Créer mon compte
+    <button type="submit" class="btn btn-auth btn-connect">
+        <i class="bi bi-person-plus me-2"></i>CRÉER MON COMPTE
     </button>
 </form>
 

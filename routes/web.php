@@ -75,6 +75,7 @@ Route::prefix('shop')
         // Catalogue produits
         Route::get('/', [ShopProductController::class, 'index'])->name('products.index');
         Route::get('/products/{product}', [ShopProductController::class, 'show'])->name('products.show');
+        Route::get('/search', [ShopProductController::class, 'search'])->name('search');
         
         // Navigation par catégories
         Route::get('/categories', [ShopCategoryController::class, 'index'])->name('categories.index');

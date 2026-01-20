@@ -14,6 +14,7 @@
     <table border="1" cellpadding="10" cellspacing="0" style="margin-top: 20px;">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Nom</th>
                 <th>Catégorie</th>
                 <th>Prix</th>
@@ -25,6 +26,15 @@
         <tbody>
             @foreach ($products as $product)
                 <tr>
+                    <td>
+                        @if($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
+                        @else
+                            <div style="width: 60px; height: 60px; background: #f0f0f0; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #999;">
+                                Pas d'image
+                            </div>
+                        @endif
+                    </td>
                     <td><strong>{{ $product->name }}</strong></td>
                     <td>{{ $product->category->name }}</td>
                     <td>{{ number_format($product->price, 2) }} €</td>

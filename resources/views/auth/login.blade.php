@@ -10,7 +10,7 @@
 
 <!-- Bouton retour vers inscription visible en haut -->
 <div class="mb-3">
-    <a href="{{ route('register') }}" class="btn btn-outline-secondary w-100" style="border-color: #667eea; color: #667eea; font-weight: 600;">
+    <a href="{{ route('register') }}" class="btn btn-outline-brown w-100" style="font-weight: 600;">
         <i class="bi bi-person-plus me-2"></i>Créer un compte
     </a>
 </div>
@@ -56,9 +56,11 @@
         @enderror
     </div>
 
-    <button type="submit" class="btn btn-auth">
-        Se connecter
-    </button>
+    <div class="d-grid gap-2 mt-4">
+        <button type="submit" class="btn btn-auth btn-connect">
+            <i class="bi bi-box-arrow-in-right me-2"></i>SE CONNECTER
+        </button>
+    </div>
 </form>
 
 <div class="divider">

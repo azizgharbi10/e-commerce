@@ -15,9 +15,13 @@
     <!-- Produit -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px;">
         
-        <!-- Image placeholder -->
-        <div style="background: #f0f0f0; height: 400px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd;">
-            <span style="color: #999; font-size: 3em;">📦</span>
+        <!-- Image du produit -->
+        <div style="background: #f0f0f0; height: 400px; display: flex; align-items: center; justify-content: center; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
+            @if($product->image)
+                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+            @else
+                <span style="color: #999; font-size: 3em;">📦</span>
+            @endif
         </div>
 
         <!-- Informations produit -->

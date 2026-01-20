@@ -12,10 +12,6 @@ class CategoryController extends Controller
         $categories = Category::withCount(['products' => function ($query) {
             $query->active()->inStock();
         }])
-        ->has('products', '>=', 1)
-        ->whereHas('products', function ($query) {
-            $query->active()->inStock();
-        })
         ->ordered()
         ->get();
         
@@ -27,12 +23,6 @@ class CategoryController extends Controller
         $category->load(['products' => function ($query) {
             $query->active()->inStock()->ordered();
         }]);
-        
-        // Rediriger si aucun produit actif disponible
-        if ($category->products->isEmpty()) {
-            return redirect()->route('shop.categories.index')
-                           ->with('warning', 'Cette catégorie ne contient aucun produit disponible.');
-        }
         
         return view('shop.categories.show', compact('category'));
     }

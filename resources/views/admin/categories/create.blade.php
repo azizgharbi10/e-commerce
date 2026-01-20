@@ -6,7 +6,7 @@
 
 <h1>Nouvelle catégorie</h1>
 
-<form action="{{ route('admin.categories.store') }}" method="POST">
+<form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div>
@@ -25,6 +25,17 @@
         @error('description')
             <p style="color:red;">{{ $message }}</p>
         @enderror
+    </div>
+
+    <br>
+
+    <div>
+        <label>Image</label><br>
+        <input type="file" name="image" accept="image/*">
+        @error('image')
+            <p style="color:red;">{{ $message }}</p>
+        @enderror
+        <p style="font-size:0.9em; color:#666;">Formats acceptés : JPEG, PNG, JPG, GIF (max 2MB)</p>
     </div>
 
     <br>

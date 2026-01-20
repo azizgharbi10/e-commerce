@@ -20,6 +20,7 @@
             --dark-brown: #5D4E37;
             --light-brown: #D4A574;
             --cream: #F5F1ED;
+            --cream-bg: #FFFBF7;
             --accent: #C19A6B;
             --text-dark: #3E2723;
             --text-muted: #6D6D6D;
@@ -34,8 +35,69 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background: #FAFAFA;
+            position: relative;
             color: var(--text-dark);
+            background-color: #2C2416;
+            background-image: 
+                url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80'),
+                url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80'),
+                url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=600&q=80'),
+                url('https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&q=80'),
+                url('https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80');
+            background-size: 
+                50% auto,
+                30% auto,
+                25% auto,
+                30% auto,
+                25% auto;
+            background-position: 
+                left top,
+                right 5% top 15%,
+                left 10% bottom 20%,
+                right 10% bottom 10%,
+                center bottom;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        
+        /* Overlay marron pour cohérence */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(93, 78, 55, 0.75) 0%, rgba(139, 111, 71, 0.70) 50%, rgba(212, 165, 116, 0.65) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Pattern de points animé */
+        body::after {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: movePattern 25s linear infinite;
+            opacity: 0.4;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes movePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+        
+        /* Container avec z-index pour passer au-dessus de l'overlay */
+        .navbar,
+        main,
+        .footer {
+            position: relative;
+            z-index: 1;
         }
         
         main {
@@ -44,11 +106,22 @@
             padding-bottom: 4rem;
         }
         
+        /* Container interne avec fond blanc pour le contenu */
+        main .container {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
         .navbar {
             background: var(--dark-brown) !important;
             padding: 1rem 0;
             box-shadow: 0 2px 12px rgba(93, 78, 55, 0.08);
             border-bottom: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1050;
         }
         
         .navbar-brand {
@@ -111,19 +184,54 @@
         
         .dropdown-menu {
             border: 1px solid var(--border-light);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            min-width: 220px;
+            padding: 8px 0;
+            margin-top: 8px;
+            z-index: 1060;
+            overflow: visible !important;
         }
         
         .dropdown-item {
-            padding: 0.6rem 1.2rem;
+            padding: 10px 20px;
             font-weight: 500;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .dropdown-item:hover {
             background: var(--cream);
             color: var(--primary-brown);
+        }
+        
+        .dropdown-item.text-danger {
+            color: #dc3545 !important;
+            font-weight: 600;
+        }
+        
+        .dropdown-item.text-danger:hover {
+            background: #fff5f5;
+            color: #c62828 !important;
+        }
+        
+        /* Style pour les boutons dans dropdown */
+        .dropdown-item[type="submit"] {
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+        }
+        
+        /* Séparateur plus visible */
+        .dropdown-divider {
+            margin: 8px 0;
+            border-top: 1px solid var(--border-light);
         }
         
         .alert {
@@ -213,11 +321,6 @@
                             <i class="bi bi-grid"></i> Catégories
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('shop.products.index') }}">
-                            <i class="bi bi-bag"></i> Catalogue
-                        </a>
-                    </li>
                 </ul>
                 
                 <ul class="navbar-nav">
@@ -240,28 +343,28 @@
                         @endif
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle"></i> {{ auth()->user()->name }}
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('shop.account.profile') }}">
                                         <i class="bi bi-person"></i> Mon profil
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('shop.account.orders') }}">
-                                        <i class="bi bi-box-seam"></i> Mes commandes
-                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="bi bi-box-arrow-right"></i> Se déconnecter
+                                        </button>
+                                    </form>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item text-danger">
-                                            <i class="bi bi-box-arrow-right"></i> Déconnexion
-                                        </button>
-                                    </form>
+                                    <a class="dropdown-item" href="{{ route('shop.account.orders') }}">
+                                        <i class="bi bi-box-seam"></i> Mes commandes
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -331,7 +434,6 @@
                 <div class="col-lg-4 mb-4">
                     <h6 class="mb-3">Navigation rapide</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="{{ route('shop.products.index') }}" class="text-decoration-none">Catalogue</a></li>
                         <li class="mb-2"><a href="{{ route('shop.categories.index') }}" class="text-decoration-none">Catégories</a></li>
                         <li class="mb-2"><a href="{{ route('shop.cart.index') }}" class="text-decoration-none">Mon panier</a></li>
                         @auth

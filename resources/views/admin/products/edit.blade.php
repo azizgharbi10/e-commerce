@@ -6,7 +6,7 @@
 
 <h1>Modifier le produit</h1>
 
-<form action="{{ route('admin.products.update', $product) }}" method="POST">
+<form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -33,6 +33,27 @@
         @error('name')
             <p style="color:red;">{{ $message }}</p>
         @enderror
+    </div>
+
+    <br>
+
+    <div>
+        <label>Image du produit</label><br>
+        @if($product->image)
+            <div style="margin-bottom: 10px;">
+                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 200px; border-radius: 8px;">
+                <br>
+                <label style="margin-top: 5px;">
+                    <input type="checkbox" name="remove_image" value="1">
+                    Supprimer l'image actuelle
+                </label>
+            </div>
+        @endif
+        <input type="file" name="image" accept="image/*">
+        @error('image')
+            <p style="color:red;">{{ $message }}</p>
+        @enderror
+        <small style="color: #666;">Format: JPG, PNG, GIF (max 2MB)</small>
     </div>
 
     <br>

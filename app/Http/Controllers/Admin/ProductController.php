@@ -27,7 +27,7 @@ class ProductController extends Controller
     {
         $messages = [
             'name.required' => 'Le nom est obligatoire.',
-            'name.max' => 'Le nom ne doit pas dépasser 255 caractères.',
+            'name.max' => 'Le nom ne dépasse pas 255 caractères.',
             'category_id.required' => 'La catégorie est obligatoire.',
             'category_id.exists' => 'La catégorie sélectionnée n\'existe pas.',
             'price.required' => 'Le prix est obligatoire.',
@@ -39,6 +39,9 @@ class ProductController extends Controller
             'status.required' => 'Le statut est obligatoire.',
             'status.in' => 'Le statut doit être "active" ou "inactive".',
             'slug.unique' => 'Ce slug existe déjà, choisissez un autre nom.',
+            'image.image' => 'Le fichier doit être une image.',
+            'image.mimes' => 'L\'image doit être au format: jpeg, png, jpg, gif.',
+            'image.max' => 'L\'image ne doit pas dépasser 2MB.',
         ];
 
         $validated = $request->validate([
@@ -48,6 +51,7 @@ class ProductController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'in:active,inactive'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ], $messages);
 
         $slug = Str::slug($validated['name']);
@@ -58,6 +62,11 @@ class ProductController extends Controller
             ['slug.unique' => 'Ce slug existe déjà, choisissez un autre nom.']
         )->validate();
 
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+        }
+
         Product::create([
             'category_id' => $validated['category_id'],
             'name' => $validated['name'],
@@ -66,6 +75,7 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'stock' => $validated['stock'],
             'status' => $validated['status'],
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('admin.products.index')
@@ -82,7 +92,7 @@ class ProductController extends Controller
     {
         $messages = [
             'name.required' => 'Le nom est obligatoire.',
-            'name.max' => 'Le nom ne doit pas dépasser 255 caractères.',
+            'name.max' => 'Le nom ne dépasse pas 255 caractères.',
             'category_id.required' => 'La catégorie est obligatoire.',
             'category_id.exists' => 'La catégorie sélectionnée n\'existe pas.',
             'price.required' => 'Le prix est obligatoire.',
@@ -94,6 +104,9 @@ class ProductController extends Controller
             'status.required' => 'Le statut est obligatoire.',
             'status.in' => 'Le statut doit être "active" ou "inactive".',
             'slug.unique' => 'Ce slug existe déjà, choisissez un autre nom.',
+            'image.image' => 'Le fichier doit être une image.',
+            'image.mimes' => 'L\'image doit être au format: jpeg, png, jpg, gif.',
+            'image.max' => 'L\'image ne doit pas dépasser 2MB.',
         ];
 
         $validated = $request->validate([
@@ -103,6 +116,7 @@ class ProductController extends Controller
             'price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'integer', 'min:0'],
             'status' => ['required', 'in:active,inactive'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ], $messages);
 
         $slug = Str::slug($validated['name']);
@@ -113,6 +127,25 @@ class ProductController extends Controller
             ['slug.unique' => 'Ce slug existe déjà, choisissez un autre nom.']
         )->validate();
 
+        $imagePath = $product->image;
+        
+        // Supprimer l'image si demandé
+        if ($request->has('remove_image') && $request->remove_image == '1') {
+            if ($product->image) {
+                \Storage::disk('public')->delete($product->image);
+            }
+            $imagePath = null;
+        }
+        
+        // Upload nouvelle image
+        if ($request->hasFile('image')) {
+            // Supprimer l'ancienne image
+            if ($product->image) {
+                \Storage::disk('public')->delete($product->image);
+            }
+            $imagePath = $request->file('image')->store('products', 'public');
+        }
+
         $product->update([
             'category_id' => $validated['category_id'],
             'name' => $validated['name'],
@@ -121,6 +154,7 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'stock' => $validated['stock'],
             'status' => $validated['status'],
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('admin.products.index')
